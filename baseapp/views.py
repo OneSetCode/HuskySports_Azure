@@ -94,7 +94,7 @@ def userProfile(request, pk):
     return render(request, 'baseapp/profile.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login') 
 def createRoom(request):
     form = RoomForm()
     topics = Topic.objects.all()

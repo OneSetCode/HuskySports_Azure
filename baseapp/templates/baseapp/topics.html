@@ -31,14 +31,16 @@
           </label>
         </form>
 
-        <ul class="topics__list">
+        <ul class="topics__list2">
           <li>
             <a href="{% url 'topics' %}" class="active">All <span>{{room_count}}</span></a>
           </li>
           {% for topic in topics %}
-          <li>
-            <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}} <span>{{topic.room_set.all.count}}</span></a>
-          </li>
+            {% if topic.room_set.all.count != 0 %}
+            <li>
+              <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}} <span>{{topic.room_set.all.count}}</span></a>
+            </li>
+            {% endif %}
           {% endfor %}
         </ul>
       </div>

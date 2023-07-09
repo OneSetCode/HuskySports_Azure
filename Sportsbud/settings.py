@@ -13,9 +13,8 @@ SECRET_KEY = 'django-insecure-b-+*k@nc$!_%lctf_s_lrjnm%dcbcs!43$=ljg!za_#qxi7gtd
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# 正常情况下生产环境debug一定要False，不过这个web不重要，turn True的话heroku就可以存储media文件而不用aws s3了。
 
-ALLOWED_HOSTS = ['huskysports.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','huskysports-production.up.railway.app']
 
 
 # Application definition
@@ -80,31 +79,10 @@ WSGI_APPLICATION = 'Sportsbud.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-#---- MicroSoft SQL Server Database (mssql-django)
-DATABASES = {
-    'default': {
-        'ENGINE': 'mssql',  
-        'NAME': os.getenv("DBName"),
-        'HOST': os.getenv("Host"), 
-        'PORT': os.getenv("Port"), 
-        'USER': os.getenv("UserID"),  
-        'PASSWORD': os.getenv("Password"), 
-    }
-}
-
-# ---- Default SQLite database
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#   }
-#}
-
-
-# ---- MySQL databse (pymysql, imported in _init_.py)
+# ---- MicroSoft SQL Server Database (mssql-django)
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',  
+#         'ENGINE': 'mssql',  
 #         'NAME': os.getenv("DBName"),
 #         'HOST': os.getenv("Host"), 
 #         'PORT': os.getenv("Port"), 
@@ -112,7 +90,29 @@ DATABASES = {
 #         'PASSWORD': os.getenv("Password"), 
 #     }
 # }
- 
+
+# ---- Default SQLite database
+'''DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}'''
+# ---- Migrate to Heroku Postgres database
+# import dj_database_url
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
+
+DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'mymongodb',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': os.getenv("MONGODB")
+            }  
+        }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -165,19 +165,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = ['https://127.0.0.1','https://huskysports-production.up.railway.app']
 
 
 # --- S3 BUCKETS CONFIGURE
-AWS_ACCESS_KEY_ID = 'AKIA4DVZ4GUFSMQMXQWX'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'nick-first-bucket'
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
 
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
-STATIC_LOCATION = 'static' 
-STATIC_URL = f'https://nick-first-bucket.s3.amazonaws.com/{STATIC_LOCATION}/'
-STATICFILES_STORAGE = 'Sportsbud.storage_backends.StaticStorage'
+#STATIC_LOCATION = 'static' 
+#STATIC_URL = f'https://nick-first-bucket.s3.amazonaws.com/{STATIC_LOCATION}/'
+#STATICFILES_STORAGE = 'Sportsbud.storage_backends.StaticStorage'
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 
 MEDIA_LOCATION = 'media'
 MEDIA_URL = f'https://nick-first-bucket.s3.amazonaws.com/{MEDIA_LOCATION}/'

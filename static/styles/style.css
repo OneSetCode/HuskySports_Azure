@@ -3,13 +3,13 @@
 :root {
   --color-main: #8cf1f1;
   --color-main-light: #e1f6fb;
-  --color-dark: #1c1c20;
-  --color-dark-medium: #0b0b0b;
+  --color-dark: #2c295f;
+  --color-dark-medium: #0f1634;
   --color-dark-light: #4b8eed;
   --color-light: #e5e5e5;
   --color-gray: #8b8b8b;
   --color-light-gray: #b2bdbd;
-  --color-bg: #0b0b0b;
+  --color-bg: #141b3e;
   --color-success: #5dd693;
   --color-error: #fc4b0b;
 }
@@ -48,8 +48,13 @@ body {
   font-weight: 400;
   font-size: 1.5rem;
   color: var(--color-light-gray);
-  background-color: var(--color-bg);
   min-height: 100vh;
+  /*background-color: var(--color-bg);*/ 
+  background-image: url('/static/images/husky.jpg');
+  background-repeat: no-repeat;
+  background-position: top;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 img {
@@ -58,7 +63,7 @@ img {
 
 a {
   display: inline-block;
-  color: var(--color-main);
+  color: var(--color-main); 
   text-decoration: none;
 }
 
@@ -557,17 +562,30 @@ a {
 ================================*/
 
 .topics__header {
-  margin-bottom: 2rem;
+  background-color: var(--color-dark-light);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .topics__header h2 {
   text-transform: uppercase;
   font-weight: 500;
-  color: var(--color-dark-light);
+  color: var(--color-light);
 }
 
 .topics__list {
   list-style: none;
+  background-color: rgba(28, 28, 32, 0.8);
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .topics__list li a {
@@ -577,7 +595,12 @@ a {
   font-weight: 500;
   color: var(--color-light-gray);
   transition: all 0.3s ease-in-out;
+} 
+
+.topics__list li:last-child {
+  margin-bottom: 0rem;
 }
+
 
 .topics__list li a.active,
 .topics__list li a:hover {
@@ -586,12 +609,53 @@ a {
 
 .topics__list li a span {
   padding: 0.5rem 1rem;
-  background-color: var(--color-dark);
   border-radius: 3px;
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 1px;
 }
+
+
+
+.topics__list2 {
+  list-style: none;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding-top: 3rem;
+  padding-bottom: 0rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.topics__list2 li a {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  font-weight: 500;
+  color: var(--color-light-gray);
+  transition: all 0.3s ease-in-out;
+} 
+
+.topics__list2 li:last-child {
+  margin-bottom: 0rem;
+}
+
+
+.topics__list2 li a.active,
+.topics__list2 li a:hover {
+  color: var(--color-main);
+}
+
+.topics__list2 li a span {
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+
+
 
 .topics-page a:hover {
   text-decoration: underline;
@@ -635,7 +699,7 @@ a {
 
 .roomList__header p {
   font-weight: 500;
-  color: var(--color-dark-light);
+  color: var(--color-main);
 }
 
 /*========== Room List Room ==========*/
